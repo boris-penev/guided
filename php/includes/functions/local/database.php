@@ -570,6 +570,6 @@
 
   function getAirData ( )
 	{
-		return wh_db_query ( 'select x as lat, y as lng, `2012` as count from  order by `2012`' );
+		return wh_db_query ( 'select x as lat, y as lng, `2012` as count from air_quality order by count' );
 	}
 ?>
