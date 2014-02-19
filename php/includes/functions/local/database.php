@@ -567,4 +567,9 @@
 		return ( $query == '' )
 			? wh_db_query ( $query ) : null;
 	}
+
+  function getAirData ( )
+	{
+		return wh_db_query ( 'select x as lat, y as lng, `2012` as count from  order by `2012`' );
+	}
 ?>
