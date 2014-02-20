@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" /> 
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTcQiwEsxBnwZNp5rCOVNVp_71COfa8Nw&sensor=true"></script>
+	</head>
+	<body>
+	
+	<div id="leftPanel">
+	   <div id="interestsPanel">
+	      <div class="interestsPanelEntry" data-number="0" data-offset="0">Back to Top</div>
+		  <div class="interestsPanelEntry" data-number="1" ></div>
+		  <div class="interestsPanelEntry" data-number="2" ></div>
+		  <div class="interestsPanelEntry" data-number="3" ></div>
+		  <div class="interestsPanelEntry" data-number="4" ></div>
+		  <div class="interestsPanelEntry" data-number="5" ></div>
+	   </div>
+	</div>
+	
+	<div id="main-container">
+	   
+	   <div class="panel">
+	   
+	     <div class="container">
+            <h1>We suggest, you explore!</h1>
+	     </div>
+	   
+	      <div class="card" id="hotelQuestion">
+	         <p>Looking for a hotel in Edinburgh?</p>
+	       <div class="button" id="yes">Yes</div>
+		   <div class="button" id="no">No</div>
+	      </div>
+	
+	      <div class="card" id="badges">
+	         <p>Rate the badges according to your interests.</p>
+	         <div class="badgeContainer"><div class="badge" id="nature" data-pressed="false" ><p>Nature</p></div></div>
+		     <div class="badgeContainer"><div class="badge" id="history" data-pressed="false" ><p>History</p></div></div>
+		     <div class="badgeContainer"><div class="badge" id="art" data-pressed="false" ><p>Art</p></div></div>
+		     <div class="badgeContainer"><div class="badge" id="monuments" data-pressed="false" ><p>Sport</p></div></div>
+		     <div class="badgeContainer"><div class="badge" id="gardens" data-pressed="false"><p>Study</p></div></div>
+		     <div class="badgeContainer"><div class="badge" id="music" data-pressed="false"><p>Music</p></div></div>
+	      </div>
+	   </div>
+	   
+    </div>
+	
+	<div id="rightPanel"></div>
+	
+	<div id="footer">Smart Data Hack ILW | guidED 2014</div>
+	</body>
+	<script type="text/javascript" src="js/planatrip.js"></script>
+</html>
