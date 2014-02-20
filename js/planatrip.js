@@ -87,12 +87,23 @@ function constructPanel(badgeText){
    newPanel.append("<div class=\"panelHeader\"><h1>"+badgeText+"</h1></div>");
    newPanel.append("<div class=\"panelMap\" id=\""+badgeText+"Map\"></div>");
    newPanel.append("<div class=\"panelFlashCard\"></div>");
-   
+   //<div class=\"panelFlashCardPrev\"></div> <div class=\"panelFlashCardNext\"></div>
    initialize(mapNature,badgeText+"Map");
+   
+   //flashAvatar = "img/hotel.png";
    
    var newFlashCardPanel = newPanel.find('.panelFlashCard');
    for(i=1;i<=5;i++){
-   newFlashCardPanel.append("<div class=\"flashCard\">"+i+"</div>");
+   
+   var name = "Name";
+   var genInfo = "General information about this place";
+   var firstSide = "<div class=\"flashCardTitle\">"+name+"</div><div class=\"genInfo\">"+genInfo+"</div>";
+   //<img class=\"flashAvatar\" src=\""+flashAvatar+"\"/>
+   
+   var contactInfo = "Telephone number:<br/>Emal:"
+   var secondSide = "<div class=\"buttonPutOnMap\">"+contactInfo+"</div>";
+   
+   newFlashCardPanel.append("<section class=\"containerCard\"><div class=\"flashCard\" data-reversed=\"false\"><figure class=\"front\">"+firstSide+"</figure><figure class=\"back\">"+secondSide+"</figure></div></section>");
    }
    
 }
@@ -101,9 +112,7 @@ function pressBadge(badge,badgeText){
    $(badge).css("background","-webkit-gradient(linear, left top, left bottom, color-stop(0%,#ace000), color-stop(100%,#899b00))");
    $(badge).data('pressed', true) 
 	
-   constructPanel(badgeText);	
-   //$('#main-container').append("<div class=\"panel\" id=\""+badgeText+"\">"+badgeText+"</div>");
-   //$('#'+badgeText).css('height',heightPanel);
+   constructPanel(badgeText);
    
    var nextElement = $(document).find("[data-number='" + interestsPanelEntries + "']");
    nextElement.text(badgeText);
@@ -122,3 +131,19 @@ function unpressBadge(badge,badgeText){
    removeElement.text("");
    interestsPanelEntries--;
 }
+
+
+function flip(card,reversed){
+
+   if(reversed===false){
+      card.css("-webkit-transform", "rotateY( 180deg )");
+      card.data('reversed',true);
+   }
+   else{
+      card.css("-webkit-transform", "rotateY( 0deg )")
+      card.data('reversed',false);
+   }
+}
+
+$( document ).on( "click", ".flashCard", function(){flip($(this),$(this).data('reversed'))});
+

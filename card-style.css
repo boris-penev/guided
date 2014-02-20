@@ -1,0 +1,71 @@
+.containerCard { 
+  width: 17.77%;
+  height: 92%;
+  margin: 0.7% 1% 0.7% 1%;
+  float:left;
+  border-radius: 3px;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+}
+
+.flashCard {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin-top:0px;
+  margin-left:0px;
+  border-radius: 3px;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 1s;
+  -moz-transform-style: preserve-3d;
+  -moz-transition: -moz-transform 1s;
+}
+
+.flashCard figure {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin-top:0px;
+  margin-left:0px;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+}
+
+.front {
+  background: #899b00;
+  border-radius: 3px;
+  border: 2px solid lightgrey;
+}
+
+.back {
+  background: #ace000;
+  border-radius: 3px;
+  border: 2px solid lightgrey;
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+}
+
+.flashCardTitle{
+color: white;
+text-align:center;
+font-size: 30px;
+}
+
+.genInfo{
+color: white;
+text-align:center;
+font-size: 25px;
+}
+
+.buttonPutOnMap{
+color: white;
+text-align:center;
+font-size: 30px;
+}
+
+.flashAvatar img{
+width: 100%;
+height: 100%;
+}

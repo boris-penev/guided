@@ -124,7 +124,7 @@ function placeMarker(position, map) {
 function place_user_position(position, map) {
   user_position.setPosition (position);
   setNearestHotels ( );
-  map.panTo(position);
+  //map.panTo(position);
 }
 
 function mapClick (e)
@@ -134,12 +134,12 @@ function mapClick (e)
 
 function setNearestHotels ( )
 {
-  for (var i = 0; i < Math.min(2, hotels.length); i++)
+  for (var i = 0; i < Math.min(10, hotels.length); i++)
   {
     hotels[i].removeMarker ( );
   }
   hotels.sort(distance_user);
-  for (var i = 0; i < Math.min(2, hotels.length); i++)
+  for (var i = 0; i < Math.min(10, hotels.length); i++)
   {
     hotels[i].placeMarker ( );
   }

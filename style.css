@@ -161,18 +161,34 @@ background-color: #ace000;
 }
 
 .panelFlashCard{
-width:100%; 
+width:100%;
 height: 45%; 
-background-color: yellow;
+background-color: #8B5A00;
+float:left;
+overflow:hidden;
 }
 
-.flashCard{
+/*.panelFlashCardPrev{
+width:7%; 
+height: 45%; 
+background-color: red;
+float:left;
+}
+
+.panelFlashCardNext{
+width:7%; 
+height: 45%; 
+background-color: blue;
+float:left;
+}*/
+
+/*.flash{
 width: 18%;
 height: 90%;
 margin: 1% 1% 1% 1%;
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff3019), color-stop(100%,#cf0404));
 float:left;
-}
+}*/
 
 #interestsPanel{
 width: 12%;
