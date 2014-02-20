@@ -568,8 +568,49 @@
 			? wh_db_query ( $query ) : null;
 	}
 
-  function getAirData ( )
+  function getAirQuality ( )
 	{
-		return wh_db_query ( 'select x as lat, y as lng, `2012` as count from air_quality order by count' );
+		return wh_db_query ( 'select x as lat, y as lng, `2012` as count'
+                         . ' from air_quality where `2012` is not null' );
+	}
+
+  function getActivities ( )
+	{
+		return wh_db_query ( 'select * from activities' );
+	}
+
+  function getCycle ( )
+	{
+		return wh_db_query ( 'select * from cycle' );
+	}
+
+  function getHotels ( )
+	{
+		return wh_db_query ( 'select * from hotels' );
+	}
+
+  function getLibraries ( )
+	{
+		return wh_db_query ( 'select * from libraries' );
+	}
+
+  function getMonuments ( )
+	{
+		return wh_db_query ( 'select * from monuments' );
+	}
+
+  function getMuseums ( )
+	{
+		return wh_db_query ( 'select * from museums' );
+	}
+
+  function getParks ( )
+	{
+		return wh_db_query ( 'select * from parks' );
+	}
+
+  function getPlaygrounds ( )
+	{
+		return wh_db_query ( 'select * from playgrounds' );
 	}
 ?>
