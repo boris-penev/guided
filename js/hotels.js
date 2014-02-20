@@ -1,61 +1,43 @@
 var map;
 var user_position;
 var hotels = [];
+var data = [];
+var panel;
 var request = new XMLHttpRequest();
 
 $(document).ready(function()
 {
 
-//var heightPanel = $(window).height()*.96;
    
    $('#main-container').append("<div class=\"panel\" id=\"hotels\"></div>");
-   var newPanel = $('#hotels');
-   //newPanel.css('height',heightPanel*4);
-   newPanel.append("<div class=\"panelHeader\"><h1>Choose your hotel</h1></div>");
-   newPanel.append("<div class=\"panelMap\" id=\"hotelsMap\"></div>");
-   //$('#hotelsMap').css('height',heightPanel);
-   newPanel.append("<div class=\"panelFlashCard\"></div>");
-   //$('#panelFlashCard').css('height',heightPanel*3);
-   //<div class=\"panelFlashCardPrev\"></div> <div class=\"panelFlashCardNext\"></div>
-   ping ( );
+   panel = $('#hotels');
+   panel.append("<div class=\"panelHeader\"><h1>Click and choose a hotel nearby!</h1></div>");
+   panel.append("<div class=\"panelMap\" id=\"hotelsMap\"></div>");
+   panel.append("<div class=\"panelFlashCard\"></div>");
+   ping ();
    
-   //flashAvatar = "img/hotel.png";
+   flashCardPanel = panel.find('.panelFlashCard');
    
-   var newFlashCardPanel = newPanel.find('.panelFlashCard');
-   for(i=1;i<=25;i++){
-   
-   var name = "Name";
-   var genInfo = "General information about this place";
-   var firstSide = "<div class=\"flashCardTitle\">"+name+"</div><div class=\"genInfo\">"+genInfo+"</div>";
-   //<img class=\"flashAvatar\" src=\""+flashAvatar+"\"/>
-   
-   var contactInfo = "Telephone number:<br/>Emal:"
-   var secondSide = "<div class=\"buttonPutOnMap\">"+contactInfo+"</div>";
-   
-   newFlashCardPanel.append("<section class=\"containerCard\"><div class=\"flashCard\" data-reversed=\"false\"><figure class=\"front\">"+firstSide+"</figure><figure class=\"back\">"+secondSide+"</figure></div></section>");
-   
-   }
+
 })
 
-/*function initialize(map,divID) {
-  var myLatlng = new google.maps.LatLng(55.94, -3.17);
-  var mapOptions = {
-    zoom: 12,
-    center: myLatlng
-  };
-  map = new google.maps.Map(document.getElementById(divID),
-      mapOptions);
-	  
-     var marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      title: 'Hello World!'
-  });
-}*/
+function flip(card,reversed){
+
+   if(reversed===false){
+      card.css("-webkit-transform", "rotateY( 180deg )");
+      card.data('reversed',true);
+   }
+   else{
+      card.css("-webkit-transform", "rotateY( 0deg )")
+      card.data('reversed',false);
+   }
+}
+
+$( document ).on( "click", ".flashCard", function(){flip($(this),$(this).data('reversed'))});
 
 function ping ( )
 {
-  request.open("GET","http://localhost/guided/php/query.php?sesame_open=hotels",
+  request.open("GET","http://172.20.1.82/guided/php/query.php?sesame_open=hotels",
                false);
   request.send (null);
   request.onreadystatechange = process_data ();
@@ -68,14 +50,14 @@ function process_data ( )
     // Something is wrong with the request and it is not received correctly
     return;
   }
-  var data = JSON.parse(request.responseText);
-  console.log(data);
+  data = JSON.parse(request.responseText);
+  //console.log(data);
   for (var i = 0; i < data.length; i++)
   {
     hotels[i] = new point(data[i].latitude, data[i].longtitude);
     hotels[i].id = data[i].id;
   }
-  console.log(hotels);
+  //console.log(hotels);
   if (document.readyState == 'complete') {
     initialize();
   }
@@ -135,12 +117,13 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
-  map = new google.maps.Map(document.getElementById('map-canvas'),
+  map = new google.maps.Map(document.getElementById('hotelsMap'),
       mapOptions);
 
   user_position = new google.maps.Marker({
     position: mapOptions.center,
-    map: map
+    map: map,
+	icon: './img/green-dot.svg'
   });
 
   setNearestHotels ( );
@@ -158,7 +141,7 @@ function placeMarker(position, map) {
 function place_user_position(position, map) {
   user_position.setPosition (position);
   setNearestHotels ( );
-  //map.panTo(position);
+  map.panTo(position);
 }
 
 function mapClick (e)
@@ -171,12 +154,48 @@ function setNearestHotels ( )
   for (var i = 0; i < Math.min(10, hotels.length); i++)
   {
     hotels[i].removeMarker ( );
+    removeFlashCard(hotels[i].id);
   }
+  flashCardPanel.remove();
   hotels.sort(distance_user);
+  panel.append("<div class=\"panelFlashCard\"></div>");
+  flashCardPanel = panel.find('.panelFlashCard');
   for (var i = 0; i < Math.min(10, hotels.length); i++)
   {
     hotels[i].placeMarker ( );
+    placeFlashCard(hotels[i].id);
   }
 }
 
-ping ();
+function placeFlashCard(i){
+   
+   var name = data[i-1].hotel;
+   if(name==""){
+      name="-"}
+   var owner = data[i-1].owner;
+   if(owner==""){
+      owner="-"}
+   var street = data[i-1].street;
+   if(street==""){
+      street="-"}
+   var grade = data[i-1].grade;
+   if(grade==""){
+      grade="-"}
+   var rooms = data[i-1].rooms;
+   if(rooms==""){
+      rooms="-"}
+   
+   //var genInfo = "General information about this place";
+   var firstSide = "<div class=\"flashCardTitle\">"+name+"</div><div class=\"genInfo\">"+street+"</div>";
+   
+   var secondSide = "<div class=\"buttonPutOnMap\">Owner:"+owner+"</div><div class=\"buttonPutOnMap\">Grade:"+grade+"</div><div class=\"buttonPutOnMap\">Rooms:"+rooms+"</div>";
+   
+   flashCardPanel.append("<section class=\"containerCard\"><div class=\"flashCard\" data-marker=\""+i+"\"data-reversed=\"false\"><figure class=\"front\">"+firstSide+"</figure><figure class=\"back\">"+secondSide+"</figure></div></section>");
+   
+}
+
+function removeFlashCard(i){
+   var element = flashCardPanel.find("[data-marker='" + i + "']");
+   element.remove();
+}
+

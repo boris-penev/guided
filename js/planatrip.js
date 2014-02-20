@@ -32,6 +32,12 @@ $('#no').click(function(){
 
 })
 
+$('#yes').click(function(){
+
+   window.location = "hotels.html";
+
+})
+
 $('.interestsPanelEntry').click(function(){
    var offset = $(this).data("offset");
    scrollTo(offset);

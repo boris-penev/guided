@@ -62,16 +62,16 @@ float:left;
 
 .panelMap{
 width:100%; 
-height: 50%
+height: 500px;
 margin:0px auto 0px auto;
 background-color: #ace000;
 }
 
 .panelFlashCard{
 width:100%;
-height: 60%; 
 background-color: #8B5A00;
 float:left;
+margin: 0px auto 30px auto;
 overflow:hidden;
 }
 
@@ -145,7 +145,7 @@ float:left;
 
 .containerCard { 
   width: 17.77%;
-  height: 15%;
+  height: 230px;
   margin: 0.7% 1% 0.7% 1%;
   float:left;
   border-radius: 3px;
