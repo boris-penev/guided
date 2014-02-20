@@ -13,14 +13,46 @@
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
+
 var map;
 var user_position;
 var hotels = [];
-hotels = [new point(-35.0, 110.0), new point(-18.0, 150.0),
-          new point(-29.0, 121.0), new point(-27.5, 125.0),
-          new point(-26.0, 129.0)];
+var request = new XMLHttpRequest();
 
-function point (x, y) {
+function ping ( )
+{
+  request.open("GET","http://localhost/guided/php/query.php?sesame_open=hotels",
+               false);
+  request.send (null);
+  request.onreadystatechange = process_data ();
+}
+
+function process_data ( )
+{
+  if (request.readyState != 4 || request.status != 200)
+  {
+    // Something is wrong with the request and it is not received correctly
+    return;
+  }
+  var data = JSON.parse(request.responseText);
+  console.log(data);
+  for (var i = 0; i < data.length; i++)
+  {
+    hotels[i] = new point(data[i].latitude, data[i].longtitude);
+    hotels[i].id = data[i].id;
+  }
+  console.log(hotels);
+  if (document.readyState == 'complete') {
+    initialize();
+  }
+  else {
+    google.maps.event.addDomListener(window, 'load', initialize);
+  }
+}
+
+function point (x, y)
+{
+  this.id;
   this.x = x;
   this.y = y;
   var marker;
@@ -64,8 +96,9 @@ function distance_user (first, second) {
 
 function initialize() {
   var mapOptions = {
-    zoom: 4,
-    center: new google.maps.LatLng(-25.363882, 131.044922)
+    zoom: 12,
+    center: new google.maps.LatLng(55.970, -3.150),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -112,7 +145,7 @@ function setNearestHotels ( )
   }
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+ping ();
 
     </script>
   </head>
