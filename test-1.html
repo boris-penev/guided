@@ -35,13 +35,11 @@ function process_data ( )
     return;
   }
   var data = JSON.parse(request.responseText);
-  console.log(data);
   for (var i = 0; i < data.length; i++)
   {
     hotels[i] = new point(data[i].latitude, data[i].longtitude);
     hotels[i].id = data[i].id;
   }
-  console.log(hotels);
   if (document.readyState == 'complete') {
     initialize();
   }

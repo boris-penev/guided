@@ -8,37 +8,39 @@ var request = new XMLHttpRequest();
 $(document).ready(function()
 {
 
-
    $('#main-container').append("<div class=\"panel\" id=\"hotels\"></div>");
    panel = $('#hotels');
-   panel.append("<div class=\"panelHeader\"><h1>Click and choose a hotel nearby!</h1></div>");
+   panel.append("<div class=\"panelHeader\"><h1>Click and choose a hotel " +
+                "nearby!</h1></div>");
    panel.append("<div class=\"panelMap\" id=\"hotelsMap\"></div>");
    panel.append("<div class=\"panelFlashCard\"></div>");
    ping ();
 
    flashCardPanel = panel.find('.panelFlashCard');
 
+});
 
-})
-
-function flip(card,reversed){
-
-   if(reversed===false){
+function flip(card, reversed)
+{
+   if (reversed === false) {
       card.css("-webkit-transform", "rotateY( 180deg )");
-      card.data('reversed',true);
+      card.data('reversed', true);
    }
-   else{
+   else {
       card.css("-webkit-transform", "rotateY( 0deg )")
-      card.data('reversed',false);
+      card.data('reversed', false);
    }
 }
 
-$( document ).on( "click", ".flashCard", function(){flip($(this),$(this).data('reversed'))});
+$( document ).on( "click", ".flashCard", function(){
+  flip ($(this), $(this).data('reversed'))
+});
 
 function ping ( )
 {
-  request.open("GET","http://testpilot.x10.mx/guided/php/query.php?sesame_open=hotels",
-               false);
+  request.open("GET",
+    "http://testpilot.x10.mx/guided/php/query.php?sesame_open=hotels",
+     false);
   request.send (null);
   request.onreadystatechange = process_data ();
 }
@@ -123,7 +125,7 @@ function initialize() {
   user_position = new google.maps.Marker({
     position: mapOptions.center,
     map: map,
-	icon: './img/green-dot.svg'
+  icon: './img/green-dot.svg'
   });
 
   setNearestHotels ( );
@@ -186,11 +188,18 @@ function placeFlashCard(i){
       rooms="-"}
 
    //var genInfo = "General information about this place";
-   var firstSide = "<div class=\"flashCardTitle\">"+name+"</div><div class=\"genInfo\">"+street+"</div>";
+   var firstSide = "<div class=\"flashCardTitle\">" + name +
+                   "</div><div class=\"genInfo\">"+street+"</div>";
 
-   var secondSide = "<div class=\"buttonPutOnMap\">Owner:"+owner+"</div><div class=\"buttonPutOnMap\">Grade:"+grade+"</div><div class=\"buttonPutOnMap\">Rooms:"+rooms+"</div>";
+   var secondSide = "<div class=\"buttonPutOnMap\">Owner:" + owner +
+                "</div><div class=\"buttonPutOnMap\">Grade:" + grade +
+                "</div><div class=\"buttonPutOnMap\">Rooms:" + rooms + "</div>";
 
-   flashCardPanel.append("<section class=\"containerCard\"><div class=\"flashCard\" data-marker=\""+i+"\"data-reversed=\"false\"><figure class=\"front\">"+firstSide+"</figure><figure class=\"back\">"+secondSide+"</figure></div></section>");
+   flashCardPanel.append("<section class=\"containerCard\">" +
+            "<div class=\"flashCard\" data-marker=\"" + i +
+            "\"data-reversed=\"false\"><figure class=\"front\">" + firstSide +
+            "</figure><figure class=\"back\">" + secondSide +
+            "</figure></div></section>");
 
 }
 
