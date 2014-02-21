@@ -21,6 +21,8 @@ var queue = [];
 // last element unprocessed element from queue
 var last = null;
 
+var request;
+
 $(document).ready(function(){
 
    heightPanel = $(window).height()*.96;
@@ -96,9 +98,9 @@ function constructPanel(badgeText){
    newPanel.append("<div class=\"panelFlashCard\"></div>");
    //<div class=\"panelFlashCardPrev\"></div> <div class=\"panelFlashCardNext\"></div>
 
-   request (badgeText)
+   var divId = badgeText+"Map";
 
-   initialize(mapGlobal,badgeText+"Map");
+   ping (badgeText, divId);
 
    //flashAvatar = "img/hotel.png";
 
@@ -127,11 +129,11 @@ function ping ( title )
   if ( title != null ) {
     queue.push(chooseQuery (title)); }
   last = queue.pop();
-  var request = new XMLHttpRequest ();
+  request = new XMLHttpRequest ();
   request.open("GET",
     "http://testpilot.x10.mx/guided/php/query.php?sesame_open=" + last, false);
   request.send (null);
-  request.onreadystatechange = process_data ();
+  request.onreadystatechange = process_data (title);
 }
 
 function chooseQuery ( title )
@@ -155,7 +157,7 @@ function chooseQuery ( title )
   }
 }
 
-function process_data ( )
+function process_data ( title )
 {
   if (request.readyState != 4 || request.status != 200)
   {
@@ -163,19 +165,21 @@ function process_data ( )
     return;
   }
   data [last] = JSON.parse(request.responseText);
-  for (var i = 0; i < data.length; i++)
+  for (var i = 0; i < data[last].length; i++)
   {
-    data[last][i].point = new point(data[i][last].latitude, data[i][last].longtitude);
-    data[last][i].point.id = data[i].id;
+    data[last][i].marker = placeMarker (data[last][i].latitude,
+      data[last][i].longtitude, mapGlobal, data[last][i].name);
   }
+  console.log(data);
   if (document.readyState == 'complete') {
-    initialize();
+    initialize(mapGlobal, title + "Map");
   }
   else {
     google.maps.event.addDomListener(window, 'load', initialize);
   }
-  if ( queue.empty () === false ) {
-    return ping; }
+  if ( ! ( queue.length === 0 ) ) {
+    ping ();
+  }
 }
 
 
@@ -221,3 +225,11 @@ function flip(card,reversed){
 $( document ).on( "click", ".flashCard", function(){
   flip($(this), $(this).data('reversed'))});
 
+function placeMarker (x, y, map, name)
+{
+  return new google.maps.Marker({
+  position: new google.maps.LatLng(x, y),
+  map: map,
+  title: name
+  })
+}
