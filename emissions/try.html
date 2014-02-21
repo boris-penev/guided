@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+	  html,body,#map-canvas {
+		position: absolute;
+        height: 100%;
+		width: 100%;
+        margin: 0px;
+        padding: 0px;
+		z-index: 1;
+      }
+	  #panel {
+        position: absolute;
+		margin: 0px 50% 0px 50%;
+        z-index: 5;
+        background-color: #fff;
+        border: 3px solid #999;
+      }
+	  #facebook {
+        position: absolute;
+		bottom: 0px;
+        z-index: 5;
+        background-color: #fff;
+        border: 3px solid #999;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTcQiwEsxBnwZNp5rCOVNVp_71COfa8Nw&sensor=true&libraries=visualization"></script>
+	<script type="text/javascript" src="map.js" charset="utf-8"></script>
+	<script type="text/javascript" src="fb.js" charset="utf-8"></script>
+	</head>
+  </head>
+  <body>
+	<div id="fb-root" style="width:0px;heigth:0px;"></div>
+	<div id="content"></div>
+    <div id="panel">
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+    </div>
+    <div id="map-canvas"></div>
+	<div id="facebook" style="z-index:2;position: absolute;margin:500px 50% 600px 50%;">
+		<fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+	</div>
+  </body>
+</html>

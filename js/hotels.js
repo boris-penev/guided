@@ -8,16 +8,16 @@ var request = new XMLHttpRequest();
 $(document).ready(function()
 {
 
-   
+
    $('#main-container').append("<div class=\"panel\" id=\"hotels\"></div>");
    panel = $('#hotels');
    panel.append("<div class=\"panelHeader\"><h1>Click and choose a hotel nearby!</h1></div>");
    panel.append("<div class=\"panelMap\" id=\"hotelsMap\"></div>");
    panel.append("<div class=\"panelFlashCard\"></div>");
    ping ();
-   
+
    flashCardPanel = panel.find('.panelFlashCard');
-   
+
 
 })
 
@@ -37,7 +37,7 @@ $( document ).on( "click", ".flashCard", function(){flip($(this),$(this).data('r
 
 function ping ( )
 {
-  request.open("GET","http://172.20.1.82/guided/php/query.php?sesame_open=hotels",
+  request.open("GET","http://testpilot.x10.mx/guided/php/query.php?sesame_open=hotels",
                false);
   request.send (null);
   request.onreadystatechange = process_data ();
@@ -168,7 +168,7 @@ function setNearestHotels ( )
 }
 
 function placeFlashCard(i){
-   
+
    var name = data[i-1].hotel;
    if(name==""){
       name="-"}
@@ -184,14 +184,14 @@ function placeFlashCard(i){
    var rooms = data[i-1].rooms;
    if(rooms==""){
       rooms="-"}
-   
+
    //var genInfo = "General information about this place";
    var firstSide = "<div class=\"flashCardTitle\">"+name+"</div><div class=\"genInfo\">"+street+"</div>";
-   
+
    var secondSide = "<div class=\"buttonPutOnMap\">Owner:"+owner+"</div><div class=\"buttonPutOnMap\">Grade:"+grade+"</div><div class=\"buttonPutOnMap\">Rooms:"+rooms+"</div>";
-   
+
    flashCardPanel.append("<section class=\"containerCard\"><div class=\"flashCard\" data-marker=\""+i+"\"data-reversed=\"false\"><figure class=\"front\">"+firstSide+"</figure><figure class=\"back\">"+secondSide+"</figure></div></section>");
-   
+
 }
 
 function removeFlashCard(i){
