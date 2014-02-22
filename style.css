@@ -24,7 +24,7 @@ float:left;
 width: 70%;
 height: 4000px;
 margin: -10px auto 0 auto;
-background-color:white;
+background: -webkit-linear-gradient(top, rgba(133,81,255,1) 0%,rgba(113,48,255,1) 100%);
 box-shadow: 0 0 10px 7px darkgrey;
 padding-top: 65px;
 }
@@ -67,6 +67,7 @@ margin-top:-550px;
 
 .panel{
 width: 100%;
+background: -webkit-linear-gradient(top, rgba(133,81,255,1) 0%,rgba(113,48,255,1) 100%);
 }
 
 .line{
@@ -163,7 +164,7 @@ background-color: #ace000;
 .panelFlashCard{
 width:100%;
 height: 45%; 
-background-color: #8B5A00;
+background: -webkit-linear-gradient(top, rgba(142,142,142,1) 0%,rgba(158,158,158,1) 100%);
 float:left;
 overflow:hidden;
 }
@@ -192,8 +193,7 @@ float:left;
 
 #interestsPanel{
 width: 12%;
-height: 40%;
-background-image:url('img/background.jpg');
+/*background-image:url('img/background.jpg');*/
 border: 2px solid grey;
 border-radius: 3px;
 margin: 13% 0 0 -200px;
@@ -202,13 +202,12 @@ position: fixed;
 
 .interestsPanelEntry{
 text-align: center;
-font-size: 2em;
+font-size: 1.7em;
 color: white;
-text-shadow: 2px 2px 2px black;
+text-shadow: 1px 1px 1px black;
 height: 16.666667%;
 width: 100%;
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#919191), color-stop(99%,#c9c9c9));
-border-radius: 3px;
 }
 
 .badgeContainer{
